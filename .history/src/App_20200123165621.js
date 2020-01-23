@@ -2,7 +2,6 @@ import React, {useState, useEffect, Fragment} from 'react';
 import FormLyrics from './components/FormLyrics';
 import axios from 'axios';
 import Song from './components/Song';
-import Info from './components/Info';
 
 function App(props) {
 
@@ -19,45 +18,36 @@ function App(props) {
     
     const result = await axios(url)
 
-    setArtist(artist);
     setLyric(result.data.lyrics)
     
+
   }
 
   const fetchApiArtist =  async search => {
 
-  
-    if(artist){
-      const url = `https://www.theaudiodb.com/api/v1/json/1/search.php?s=${artist}`;
+    const {artist} = search;
+    const url = `https://www.theaudiodb.com/api/v1/json/1/search.php?s=${artist}`;
    
     
-      const result = await axios(url)
-  
-      setInfo(result.data.artists[0]); 
-    }
-   
+    const result = await axios(url)
+
+    setInfo(result.data.artists);
     console.log('Consulta Api letras', info);
 
     //setArtist(result.data.lyrics)
+    
+
   }
-
-  useEffect(() => {
-
-  console.log('Data Date');
-  
-  fetchApiArtist()
-  }, [artist])
 
   return (
     <Fragment>
-      <FormLyrics fetchApiLyrics= {fetchApiLyrics}/>
+      <FormLyrics fetchApiLyrics= {fetchApiLyrics} fetchApiArtist={fetchApiArtist}/>
 
 <div className="container mt-5">
   <div className="row">
     
     <div className="col-md-6">
 
-<Info info={info}/>
     </div>
 
     <div className="col-md-6">

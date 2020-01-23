@@ -27,15 +27,12 @@ function App(props) {
   const fetchApiArtist =  async search => {
 
   
-    if(artist){
-      const url = `https://www.theaudiodb.com/api/v1/json/1/search.php?s=${artist}`;
+    const url = `https://www.theaudiodb.com/api/v1/json/1/search.php?s=${artist}`;
    
     
-      const result = await axios(url)
-  
-      setInfo(result.data.artists[0]); 
-    }
-   
+    const result = await axios(url)
+
+    setInfo(result.data.artists[0]);
     console.log('Consulta Api letras', info);
 
     //setArtist(result.data.lyrics)
